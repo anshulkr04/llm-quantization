@@ -3,7 +3,7 @@
 ```bash
 pip install torch transformers datasets tqdm
 python test_quantization.py
-python setup_config.py quick_test
+python setup_config.py quick_test|comprehensive_benchmark|extreme_compression|pot_grid_search
 python benchmark_runner.py config.json
 # saves restults in benchmark_results.json 
 ```

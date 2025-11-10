@@ -7,7 +7,7 @@ import sys
 
 def list_configs():
     """List available example configurations."""
-    with open('config_examples.json', 'r') as f:
+    with open('other_configs/config_examples.json', 'r') as f:
         examples = json.load(f)
     
     print("\nAvailable configurations:")
@@ -21,7 +21,7 @@ def list_configs():
 
 def setup_config(config_name: str):
     """Set up config.json from an example."""
-    with open('config_examples.json', 'r') as f:
+    with open('other_configs/config_examples.json', 'r') as f:
         examples = json.load(f)
     
     if config_name not in examples['configurations']:
@@ -34,10 +34,10 @@ def setup_config(config_name: str):
     # Remove description field before saving
     config_to_save = {k: v for k, v in config.items() if k != 'description'}
     
-    with open('config.json', 'w') as f:
+    with open('other_configs/config.json', 'w') as f:
         json.dump(config_to_save, f, indent=2)
     
-    print(f"✓ Configuration '{config_name}' loaded into config.json")
+    print(f"✓ Configuration '{config_name}' loaded into other_configs/config.json")
     print(f"  Model: {config['model_name']}")
     print(f"  Methods: {', '.join(config['quantization_methods'])}")
     print(f"  Description: {config.get('description', 'N/A')}")
