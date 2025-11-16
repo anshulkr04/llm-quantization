@@ -1,0 +1,25 @@
+{
+  "source_model": "facebook/MobileLLM-350M",
+  "target_model": "facebook/MobileLLM-1B",
+  "transfer_strategy": "adaptive",
+  "awq_config": {
+    "w_bit": 4,
+    "q_group_size": 128,
+    "protect_ratio": 0.01,
+    "scale_factor": 2.0
+  },
+  "calibration_dataset": "mit-han-lab/pile-val-backup",
+  "calibration_dataset_config": null,
+  "calibration_split": "validation",
+  "n_calibration_samples": 128,
+  "calibration_block_size": 512,
+  "test_dataset": "mit-han-lab/pile-val-backup",
+  "test_dataset_config": null,
+  "test_split": "validation",
+  "n_test_samples": 20,
+  "test_block_size": 1024,
+  "device_map": "auto",
+  "torch_dtype": "float16",
+  "scales_save_path": "scaling_factors_350m.json",
+  "results_save_path": "transfer_experiment_results.json"
+}

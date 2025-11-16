@@ -34,6 +34,30 @@ python setup_config.py list
 python benchmark_runner.py config.json
 ```
 
+### transfer quantization experiment (new!)
+
+test whether quantization parameters from a smaller model can be transferred to a larger model:
+
+```bash
+# run the transfer experiment (350m → 1b)
+python transfer_quantization_experiment.py
+
+# or with custom config
+python transfer_quantization_experiment.py transfer_config.json
+
+# or use the shell script
+chmod +x run_transfer_experiment.sh
+./run_transfer_experiment.sh
+```
+
+**what it does:**
+- quantizes mobilellm-350m and extracts scaling factors
+- transfers those factors to mobilellm-1b
+- compares: normal quantization vs transferred quantization
+- analyzes transfer effectiveness
+
+**see:** `TRANSFER_EXPERIMENT_README.md` for detailed documentation
+
 ### notes
 
 - results are saved to `benchmark_results.json`
