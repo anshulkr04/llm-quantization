@@ -1,0 +1,25 @@
+{
+  "source_model": "gpt2",
+  "target_model": "gpt2-medium",
+  "transfer_strategy": "adaptive",
+  "awq_config": {
+    "w_bit": 4,
+    "q_group_size": 128,
+    "protect_ratio": 0.01,
+    "scale_factor": 2.0
+  },
+  "calibration_dataset": "wikitext",
+  "calibration_dataset_config": "wikitext-2-raw-v1",
+  "calibration_split": "validation",
+  "n_calibration_samples": 16,
+  "calibration_block_size": 256,
+  "test_dataset": "wikitext",
+  "test_dataset_config": "wikitext-2-raw-v1",
+  "test_split": "test",
+  "n_test_samples": 5,
+  "test_block_size": 512,
+  "device_map": "auto",
+  "torch_dtype": "float16",
+  "scales_save_path": "scaling_factors_gpt2.json",
+  "results_save_path": "transfer_experiment_results_gpt2.json"
+}

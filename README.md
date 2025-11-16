@@ -39,24 +39,30 @@ python benchmark_runner.py config.json
 test whether quantization parameters from a smaller model can be transferred to a larger model:
 
 ```bash
-# run the transfer experiment (350m → 1b)
-python transfer_quantization_experiment.py
+# quick test with minimal memory (~6gb ram)
+./run_transfer_experiment.sh transfer_config_tiny.json
 
-# or with custom config
-python transfer_quantization_experiment.py transfer_config.json
+# moderate test (~12gb ram)
+./run_transfer_experiment.sh transfer_config_small.json
 
-# or use the shell script
-chmod +x run_transfer_experiment.sh
-./run_transfer_experiment.sh
+# full experiment (~24gb ram)
+./run_transfer_experiment.sh transfer_config.json
 ```
 
 **what it does:**
-- quantizes mobilellm-350m and extracts scaling factors
-- transfers those factors to mobilellm-1b
+- quantizes opt-350m (or gpt2) and extracts scaling factors
+- transfers those factors to opt-1.3b (or gpt2-medium)
 - compares: normal quantization vs transferred quantization
 - analyzes transfer effectiveness
 
-**see:** `TRANSFER_EXPERIMENT_README.md` for detailed documentation
+**configs available:**
+- `transfer_config_tiny.json` - gpt2 → gpt2-medium (minimal memory)
+- `transfer_config_small.json` - opt-350m → opt-1.3b (moderate memory)
+- `transfer_config.json` - opt-350m → opt-1.3b (full accuracy)
+
+**see:** 
+- `TRANSFER_EXPERIMENT_README.md` for detailed documentation
+- `MEMORY_OPTIMIZATION.md` if you encounter memory issues
 
 ### notes
 
