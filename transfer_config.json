@@ -1,6 +1,6 @@
 {
-  "source_model": "facebook/MobileLLM-350M",
-  "target_model": "facebook/MobileLLM-1B",
+  "source_model": "facebook/opt-350m",
+  "target_model": "facebook/opt-1.3b",
   "transfer_strategy": "adaptive",
   "awq_config": {
     "w_bit": 4,
@@ -20,6 +20,6 @@
   "test_block_size": 1024,
   "device_map": "auto",
   "torch_dtype": "float16",
-  "scales_save_path": "scaling_factors_350m.json",
+  "scales_save_path": "scaling_factors_opt350m.json",
   "results_save_path": "transfer_experiment_results.json"
 }
