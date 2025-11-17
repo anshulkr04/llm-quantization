@@ -189,9 +189,31 @@ def get_test_dataset(
     print(f"Loading {dataset_name} test dataset ({dataset_config}, {split} split)...")
     dataset = load_dataset(dataset_name, dataset_config, split=split)
     
-    # Concatenate all texts
-    text_data = "\n\n".join(dataset['text'])
+    # CRITICAL FIX: Only use the first n_samples * block_size tokens
+    # to avoid loading the entire massive dataset into memory
+    samples = []
+    total_tokens_needed = n_samples * block_size
+    current_tokens = 0
+    
+    for data in dataset:
+        if current_tokens >= total_tokens_needed:
+            break
+        
+        text = data["text"].strip()
+        if not text:
+            continue
+        
+        samples.append(text)
+        # Approximate token count (rough estimate: ~4 chars per token)
+        current_tokens += len(text) // 4
+    
+    # Concatenate only the samples we need
+    text_data = "\n\n".join(samples)
     testenc = tokenizer(text_data, return_tensors='pt')
+    
+    # Truncate to exact size needed
+    if testenc.input_ids.shape[1] > total_tokens_needed:
+        testenc.input_ids = testenc.input_ids[:, :total_tokens_needed]
     
     print(f"  -> Test dataset shape: {testenc.input_ids.shape}")
     return testenc.input_ids
